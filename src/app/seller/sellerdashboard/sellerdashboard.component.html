@@ -1,0 +1,37 @@
+<section class="seller">
+  <nav class="navbar">
+    <div class="navbar-logo">🛒 MyShop Admin</div>
+    <ul class="navbar-links">
+      <li><a (click)="setPageId('1')">Home</a></li>
+      <li><a (click)="setPageId('2')">Dashboard</a></li>
+      <li><a (click)="setPageId('3')">Products</a></li>
+      <li>
+        <a (click)="setPageId('4')">Orders</a>
+      </li>
+      <li *ngIf="isLoggedIn"><a (click)="logout()">Logout</a></li>
+    </ul>
+  </nav>
+</section>
+
+<!-- Home Page Content -->
+<div class="home-content">
+  <!-- your existing homepage content -->
+</div>
+
+<!-- Popup Message Box -->
+<div class="popup-overlay" *ngIf="showPopup">
+  <div class="popup-box">
+    <span class="close-btn" (click)="closePopup()">×</span>
+    <h2>🔒 Access Restricted</h2>
+    <p>Please login or signup to continue.</p>
+    <div class="button-group">
+      <button (click)="goToLogin()">Login</button>
+      <button (click)="goToSignup()">Signup</button>
+    </div>
+  </div>
+</div>
+
+<app-seller-home *ngIf="pageId === '1'"></app-seller-home>
+<app-dashboard *ngIf="pageId === '2'"></app-dashboard>
+<app-productpage *ngIf="pageId === '3'"></app-productpage>
+<app-orderdetails *ngIf="pageId === '4'"></app-orderdetails>

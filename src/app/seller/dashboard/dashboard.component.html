@@ -1,0 +1,42 @@
+<section id="dashboard">
+  <h1>🛍️ Seller Dashboard</h1>
+
+  <!-- 🟦 Product Table -->
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Image</th>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price (₹)</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <img
+            [src]="product.productImageURL"
+            alt="{{ product.productName }}"
+            width="80"
+          />
+        </td>
+        <td>{{ product.productId }}</td>
+        <td>{{ product.productName }}</td>
+        <td>{{ product.productCategory }}</td>
+        <td>{{ product.productDescription }}</td>
+        <td>₹{{ product.productPrice }}</td>
+        <td>{{ product.productQuantity }}</td>
+        <td>
+          <button>Edit</button>
+          <button (click)="deleteProduct(product.productId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

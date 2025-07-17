@@ -1,0 +1,32 @@
+<section class="orderdetails">
+  <h2>🛍️ User Shopping Details</h2>
+
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Order ID</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Product</th>
+        <th>Price (₹)</th>
+        <th>Quantity</th>
+        <th>Total (₹)</th>
+        <th>Order Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of userOrders; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ order.orderId }}</td>
+        <td>{{ order.userName }}</td>
+        <td>{{ order.email }}</td>
+        <td>{{ order.productName }}</td>
+        <td>₹{{ order.price }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>₹{{ order.total }}</td>
+        <td>{{ order.orderDate }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

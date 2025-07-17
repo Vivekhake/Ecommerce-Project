@@ -1,0 +1,47 @@
+<h2>🛒 Your Cart</h2>
+
+<!-- ✅ Table layout for cart items -->
+<table *ngIf="cartItems.length > 0" class="cart-table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Product</th>
+      <th>Price (₹)</th>
+      <th>Quantity</th>
+      <th>Total (₹)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of cartItems">
+      <td>
+        <img [src]="item.image" alt="{{ item.name }}" class="product-image" />
+      </td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.price }}</td>
+      <td>
+        <input
+          type="number"
+          [(ngModel)]="item.quantity"
+          (change)="updateQuantity(item.id, item.quantity)"
+          min="1"
+        />
+      </td>
+      <td>{{ item.price * item.quantity }}</td>
+      <td>
+        <button (click)="removeFromCart(item.id)">Remove</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ✅ Total Summary -->
+<div *ngIf="cartItems.length > 0" class="total-section">
+  <h3>Total Amount: ₹{{ totalAmount }}</h3>
+  <button>Proceed to Checkout</button>
+</div>
+
+<!-- ❌ Empty cart fallback -->
+<div *ngIf="cartItems.length === 0" class="empty-cart">
+  <p>Your cart is empty.</p>
+</div>

@@ -1,0 +1,52 @@
+<div class="second-card">
+  <!-- Section 1 -->
+  <div class="main">
+    <div class="main-sub">
+      <div class="section-header">
+        <h1>Top Section <span>for You</span></h1>
+        <button class="view-all">></button>
+      </div>
+      <div class="card-container">
+        <div class="card" *ngFor="let product of sectionOneProducts">
+          <img [src]="product.image" alt="{{ product.name }}" />
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="main">
+    <div class="main-sub">
+      <div class="section-header">
+        <h1>Top <span>Section</span></h1>
+        <button class="view-all">></button>
+      </div>
+      <div class="card-container">
+        <div class="card" *ngFor="let product of sectionTwoProducts">
+          <img [src]="product.image" alt="{{ product.name }}" />
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="main">
+    <div class="main-sub">
+      <div class="section-header">
+        <h1>Trending <span>Smart Gadgets</span></h1>
+        <button class="view-all">></button>
+      </div>
+      <div class="card-container">
+        <div class="card" *ngFor="let product of sectionThreeProducts">
+          <img [src]="product.image" alt="{{ product.name }}" />
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

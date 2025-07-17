@@ -1,0 +1,30 @@
+<div *ngIf="product" class="buy-now-container">
+  <h1>{{ product.name }}</h1>
+  <img [src]="product.image" alt="{{ product.name }}" />
+  <p><strong>Description:</strong> {{ product.description }}</p>
+  <p><strong>Price:</strong> ₹{{ product.price }}</p>
+
+  <!-- Address Section -->
+  <div class="address-section">
+    <label for="address"><strong>Delivery Address:</strong></label>
+    <textarea
+      id="address"
+      [(ngModel)]="address"
+      rows="3"
+      placeholder="Enter your delivery address..."
+    ></textarea>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="button-group">
+    <button class="buy-now" (click)="proceedToPayment()">
+      Proceed to Payment 💳
+    </button>
+    <button class="busy-button" (click)="markBusy()">Busy Now 🚫</button>
+  </div>
+</div>
+
+<!-- No product fallback -->
+<div *ngIf="!product">
+  <p>No product selected.</p>
+</div>

@@ -1,0 +1,40 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to Your Seller Dashboard</h1>
+    <p>
+      Manage your listings, track orders, and grow your business with real-time
+      insights.
+    </p>
+    <a href="/productpage"
+      ><button class="primary-btn">Add New Product</button></a
+    >
+  </div>
+</section>
+
+<!-- Quick Stats -->
+<section class="quick-stats">
+  <div class="stat-card">
+    <h3>₹{{ totalSales | number }}</h3>
+    <p>Total Sales</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{ productCount }}</h3>
+    <p>Products Listed</p>
+  </div>
+  <div class="stat-card">
+    <h3>{{ pendingOrders }}</h3>
+    <p>Pending Orders</p>
+  </div>
+</section>
+
+<!-- Product Preview -->
+<section class="products-preview">
+  <h2>📦 Recently Added Products</h2>
+  <ul class="product-list">
+    <li *ngFor="let product of recentProducts">
+      {{ product.name }} – ₹{{ product.price | number }}
+    </li>
+  </ul>
+  <a routerLink="/products" class="link">View All Products →</a>
+</section>

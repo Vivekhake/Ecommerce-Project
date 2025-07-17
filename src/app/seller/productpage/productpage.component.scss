@@ -1,0 +1,82 @@
+.product-form-with-image {
+  display: flex;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-section img {
+  width: 100%;
+  max-width: 700px; /* increased from 300px to 400px */
+  height: auto;
+  min-height: 500px; /* ensures it's tall enough */
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 200px;
+}
+
+.form-section label {
+  font-weight: 300;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.form-section input,
+.form-section textarea {
+  margin-top: 6px;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.form-section input:focus,
+.form-section textarea:focus {
+  border-color: #2874f0;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(40, 116, 240, 0.2);
+}
+
+.form-section textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-section button {
+  padding: 12px 20px;
+  background-color: #2874f0;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-section button:hover {
+  background-color: #185ddc;
+}

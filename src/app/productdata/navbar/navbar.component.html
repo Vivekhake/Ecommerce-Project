@@ -1,0 +1,47 @@
+<nav class="navbar">
+  <div class="logo">Flipkart</div>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search for products, brands and more" />
+    <button type="submit">🔍</button>
+  </div>
+
+  <ul class="nav-links">
+    <!-- 🧑 My Account or Username (dropdown always visible) -->
+    <li class="dropdown">
+      <a href="#">
+        {{ isLoggedIn ? userName : "My Account" }}
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><a href="#">My Profile</a></li>
+        <li><a href="#">SuperCoin Zone</a></li>
+        <li><a href="#">Flipkart Plus Zone</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Wishlist</a></li>
+        <li><a href="#">Coupons</a></li>
+        <li><a href="#">Gift Cards</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li *ngIf="isLoggedIn"><a href="#" (click)="logout()">Logout</a></li>
+      </ul>
+    </li>
+
+    <li><a href="/sellerdashboard">Become Seller</a></li>
+    <li class="cart-container">
+      <a href="/addcart">
+        Cart
+        <span class="cart-icon-wrapper">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge">{{ cartCount }}</span>
+        </span>
+      </a>
+    </li>
+
+    <!-- ✅ Login Button (always last, only if not logged in) -->
+    <li *ngIf="!isLoggedIn">
+      <button class="login-btn">
+        <a href="/login">Login</a>
+      </button>
+    </li>
+  </ul>
+</nav>

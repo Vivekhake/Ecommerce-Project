@@ -1,0 +1,151 @@
+<form [formGroup]="register" (ngSubmit)="handleSubmit()">
+  <div class="row">
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input
+        type="text"
+        id="first_name"
+        formControlName="first_name"
+        placeholder="Please enter your first name"
+      />
+      <div
+        *ngIf="
+          register.get('first_name')?.touched &&
+          register.get('first_name')?.invalid
+        "
+      >
+        <small *ngIf="register.get('first_name')?.errors?.['required']"
+          >First name is required</small
+        >
+        <small *ngIf="register.get('first_name')?.errors?.['minlength']"
+          >Min 2 characters</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input
+        type="text"
+        id="last_name"
+        formControlName="last_name"
+        placeholder="Please enter your last name"
+      />
+      <div
+        *ngIf="
+          register.get('last_name')?.touched &&
+          register.get('last_name')?.invalid
+        "
+      >
+        <small *ngIf="register.get('last_name')?.errors?.['required']"
+          >Last name is required</small
+        >
+        <small *ngIf="register.get('last_name')?.errors?.['minlength']"
+          >Min 2 characters</small
+        >
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input
+        type="text"
+        id="address"
+        formControlName="address"
+        placeholder="Please enter your address"
+      />
+      <div
+        *ngIf="
+          register.get('address')?.touched && register.get('address')?.invalid
+        "
+      >
+        <small *ngIf="register.get('address')?.errors?.['required']"
+          >Address is required</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="mobile_number">Mobile Number</label>
+      <input
+        type="text"
+        id="mobile_number"
+        placeholder="Please enter your mobile number"
+        formControlName="mobile_number"
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group">
+      <label for="zip_code">Zip Code</label>
+      <input
+        type="text"
+        id="zip_code"
+        placeholder="Please enter your zip code"
+        formControlName="zip_code"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Please enter your email"
+      />
+      <div
+        *ngIf="register.get('email')?.touched && register.get('email')?.invalid"
+      >
+        <small *ngIf="register.get('email')?.errors?.['required']"
+          >Email is required</small
+        >
+        <small *ngIf="register.get('email')?.errors?.['email']"
+          >Invalid email address</small
+        >
+      </div>
+    </div>
+  </div>
+  <!-- Add this closing div for the previous .row -->
+
+  <div class="row">
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        placeholder="Please enter your password"
+        formControlName="password"
+      />
+    </div>
+    <!-- Confirm Password -->
+    <div class="form-group">
+      <label for="confirm_password">Confirm Password</label>
+      <input
+        type="password"
+        id="confirm_password"
+        placeholder="Please re-enter your password"
+        formControlName="confirm_password"
+      />
+      <div
+        *ngIf="
+      (register.get('confirm_password')?.touched &&
+        register.get('confirm_password')?.invalid) ||
+      (register.touched && register.errors?.['passwordMismatch'])
+    "
+      >
+        <small *ngIf="register.get('confirm_password')?.errors?.['required']">
+          Confirm password is required
+        </small>
+        <small *ngIf="register.errors?.['passwordMismatch']">
+          Passwords do not match
+        </small>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit">Sign Up</button>
+  <a href="/login">Already have an <span>Account</span>?</a>
+</form>

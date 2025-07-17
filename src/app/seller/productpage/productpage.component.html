@@ -1,0 +1,58 @@
+<section class="productpage">
+  <form
+    [formGroup]="productForm"
+    (ngSubmit)="onSubmit()"
+    class="product-form-with-image"
+  >
+    <!-- Left: Image Preview -->
+    <div class="image-section">
+      <img
+        [src]="
+          productForm.get('productImageURL')?.value ||
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJTJ2PeWthD6voyy_dLp7WpShL2ermji3Tqw&s'
+        "
+        alt="Product Image"
+      />
+    </div>
+
+    <!-- Right: Form Inputs -->
+    <div class="form-section">
+      <label
+        >Product Name:
+        <input formControlName="productName" type="text" />
+      </label>
+
+      <label
+        >Product ID:
+        <input formControlName="productId" type="text" />
+      </label>
+
+      <label
+        >Image URL:
+        <input formControlName="productImageURL" type="text" />
+      </label>
+
+      <label
+        >Category:
+        <input formControlName="productCategory" type="text" />
+      </label>
+
+      <label
+        >Description:
+        <textarea formControlName="productDescription"></textarea>
+      </label>
+
+      <label
+        >Price:
+        <input formControlName="productPrice" type="text" />
+      </label>
+
+      <label
+        >Quantity:
+        <input formControlName="productQuantity" type="text" />
+      </label>
+
+      <button type="submit">Submit Product</button>
+    </div>
+  </form>
+</section>

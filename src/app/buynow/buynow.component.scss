@@ -1,0 +1,52 @@
+.buy-now-container {
+  max-width: 600px;
+  margin: 2rem auto 0 auto; /* <-- Add top margin only */
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  text-align: center;
+
+  img {
+    max-width: 300px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+
+  .address-section {
+    margin-top: 1.5rem;
+
+    textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    button {
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .buy-now {
+      background-color: #2874f0;
+      color: white;
+    }
+
+    .busy-button {
+      background-color: #dc3545;
+      color: white;
+    }
+  }
+}

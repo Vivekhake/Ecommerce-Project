@@ -1,0 +1,88 @@
+<section class="seller-register">
+  <form [formGroup]="sellerForm" (ngSubmit)="onSubmit()">
+    <h2>🛍️ Seller Registration</h2>
+
+    <!-- Row 1 -->
+    <div class="form-row">
+      <div class="form-field">
+        <label for="businessName">Business Name</label>
+        <input
+          type="text"
+          id="businessName"
+          placeholder="Enter your business name"
+          formControlName="businessName"
+        />
+      </div>
+      <div class="form-field">
+        <label for="ownerName">Owner Name</label>
+        <input
+          type="text"
+          id="ownerName"
+          placeholder="Enter your full name"
+          formControlName="ownerName"
+        />
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="form-row">
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter your email"
+          formControlName="email"
+        />
+      </div>
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Create a password"
+          formControlName="password"
+        />
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="form-row">
+      <div class="form-field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm your password"
+          formControlName="confirmPassword"
+        />
+      </div>
+      <div class="form-field">
+        <label for="contact">Contact Number</label>
+        <input
+          type="text"
+          id="contact"
+          placeholder="e.g., +91-9876543210"
+          formControlName="contact"
+        />
+      </div>
+    </div>
+
+    <!-- Address (Full width) -->
+    <div class="form-row single">
+      <label for="address">Business Address</label>
+      <textarea
+        id="address"
+        placeholder="Enter full address"
+        formControlName="address"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <button type="submit" [disabled]="sellerForm.invalid">Register</button>
+    <p class="redirect">
+      Already have an account?
+      <a href="/seller-login"><span>Login here</span></a>
+    </p>
+  </form>
+</section>

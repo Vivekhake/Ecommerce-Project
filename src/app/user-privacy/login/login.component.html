@@ -1,0 +1,24 @@
+<section id="login">
+  <form [formGroup]="data" (ngSubmit)="handleSubmit()">
+    <label for="email">User Id</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="please enter your email"
+      formControlName="email"
+    />
+    <br />
+    <br />
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      placeholder="please enter your password"
+      formControlName="password"
+    />
+    <br /><br />
+    <button type="submit">Login</button>
+    <a href="/register"> don't have an <span>Account</span></a>
+  </form>
+</section>
