@@ -1,30 +1,75 @@
 <div *ngIf="product" class="buy-now-container">
-  <h1>{{ product.name }}</h1>
-  <img [src]="product.image" alt="{{ product.name }}" />
-  <p><strong>Description:</strong> {{ product.description }}</p>
-  <p><strong>Price:</strong> ₹{{ product.price }}</p>
+  <div class="content-wrapper">
+    <!-- Left Column -->
+    <div class="img-1">
+      <div class="image-section">
+        <img [src]="product.image" alt="{{ product.name }}" />
+      </div>
+    </div>
+    <!-- Right Column -->
+    <div class="info-section">
+      <h1>{{ product.name }}</h1>
+      <p><strong>Description:</strong> {{ product.description }}</p>
+      <p><strong>Price:</strong> ₹{{ product.price }}</p>
+      <p><strong>Rating:</strong> ⭐ {{ product.rating }}</p>
+      <p>
+        <strong>Stock:</strong>
+        {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}
+      </p>
+      <p><strong>Seller:</strong> {{ product.sellerName }}</p>
 
-  <!-- Address Section -->
-  <div class="address-section">
-    <label for="address"><strong>Delivery Address:</strong></label>
-    <textarea
-      id="address"
-      [(ngModel)]="address"
-      rows="3"
-      placeholder="Enter your delivery address..."
-    ></textarea>
-  </div>
+      <!-- 🆕 Additional Dynamic Data Section -->
+      <div class="additional-details" *ngIf="product.extraDetails">
+        <h3>🛍️ More Product Details</h3>
+        <p><strong>Full Name:</strong> {{ product.extraDetails.fullName }}</p>
+        <p>
+          <strong>Ratings & Reviews:</strong>
+          {{ product.extraDetails.ratingCount }} Ratings &
+          {{ product.extraDetails.reviewCount }} Reviews
+        </p>
+        <p>
+          <strong>Discount Info:</strong>
+          {{ product.extraDetails.discountInfo }}
+        </p>
+        <p>
+          <strong>Protect Fee:</strong> ₹{{ product.extraDetails.protectFee }}
+        </p>
+        <p>
+          <strong>Secure Delivery:</strong>
+          {{ product.extraDetails.deliveryDate }}
+        </p>
 
-  <!-- Action Buttons -->
-  <div class="button-group">
-    <button class="buy-now" (click)="proceedToPayment()">
-      Proceed to Payment 💳
-    </button>
-    <button class="busy-button" (click)="markBusy()">Busy Now 🚫</button>
+        <h4>💥 Available Offers</h4>
+        <ul>
+          <li *ngFor="let offer of product.extraDetails.offers">
+            {{ offer }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Address -->
+      <div class="address-section">
+        <label for="address"><strong>Delivery Address:</strong></label>
+        <textarea
+          id="address"
+          [(ngModel)]="address"
+          rows="3"
+          placeholder="Enter your delivery address..."
+        ></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <button class="buy-now" (click)="proceedToPayment()">
+          Proceed to Payment 💳
+        </button>
+        <button class="busy-button" (click)="markBusy()">Busy Now 🚫</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- No product fallback -->
+<!-- Fallback -->
 <div *ngIf="!product">
   <p>No product selected.</p>
 </div>

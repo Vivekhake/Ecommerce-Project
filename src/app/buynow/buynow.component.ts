@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -13,13 +14,28 @@ import { FormsModule } from '@angular/forms';
 export class BuynowComponent {
   product: any;
   address: string = '';
+  isBrowser: boolean;
 
-  constructor(private router: Router) {
-    const navigation = this.router.getCurrentNavigation();
-    this.product = navigation?.extras.state?.['product'];
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+
+    if (this.isBrowser) {
+      const navigation = this.router.getCurrentNavigation();
+      this.product = navigation?.extras.state?.['product'];
+
+      if (!this.product) {
+        alert('No product selected!');
+        this.router.navigate(['/']);
+      }
+    }
   }
 
   proceedToPayment() {
+    if (!this.isBrowser) return;
+
     if (!this.address.trim()) {
       alert('Please enter a delivery address!');
       return;
@@ -31,6 +47,8 @@ export class BuynowComponent {
   }
 
   markBusy() {
-    this.router.navigate(['/busy']);
+    if (this.isBrowser) {
+      this.router.navigate(['/busy']);
+    }
   }
 }
