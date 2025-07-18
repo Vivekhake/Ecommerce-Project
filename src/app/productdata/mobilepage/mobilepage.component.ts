@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../cart.service';
-import { Router } from '@angular/router'; // ✅ Add this
+import { Router } from '@angular/router';
+import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'app-mobilepage',
@@ -13,52 +14,24 @@ import { Router } from '@angular/router'; // ✅ Add this
 export class MobilepageComponent implements OnInit {
   products: any[] = [];
 
-  constructor(private cartService: CartService, private router: Router) {} // ✅ Inject Router
+  constructor(
+    private cartService: CartService,
+    private router: Router,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
-    this.products = [
-      {
-        id: 1,
-        name: 'Samsung Galaxy',
-        price: 499,
-        image:
-          'https://i03.appmifile.com/343_item_in/21/01/2025/57963bb57ad1a92735070525f0350b85.png?thumb=1&w=600&f=webp&q=85',
-        description: 'Samsung Galaxy F05 (Twilight Blue, 64 GB)',
+    this.productService.getAllProducts().subscribe(
+      (fullProducts) => {
+        this.products = fullProducts
+          .filter((product) => product.productCategory == 'Mobile')
+          .slice(0, 5);
+        // ✅ Limit to 5 items
       },
-      {
-        id: 2,
-        name: 'POCO C71',
-        price: 999,
-        image:
-          'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/u/c/i/-original-imahawgayvnqkzaz.jpeg?q=70',
-        description: 'POCO C71 (Desert Gold, 128 GB)',
-      },
-      {
-        id: 3,
-        name: 'REDMI A3X',
-        price: 1499,
-        image:
-          'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/y/s/d/a3x-24048rn6cl-redmi-original-imah8zszncah24z8.jpeg?q=70',
-        description: 'REDMI A3X (Ocean Green, 64 GB)',
-      },
-      {
-        id: 4,
-        name: 'vivo T4 Lite 5G',
-        price: 499,
-        image:
-          'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/g/r/b/-original-imahd872ftjsb6xh.jpeg?q=70',
-        description:
-          'vivo T4 Lite 5G Charger in the Box (Titanium Gold, 128 GB)',
-      },
-      {
-        id: 5,
-        name: 'vivo T4 Lite 5G',
-        price: 999,
-        image:
-          'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/h/v/z/-original-imahd8725zchkgmn.jpeg?q=70',
-        description: 'vivo T4 Lite 5G Charger in the Box (Prism Blue, 128 GB)',
-      },
-    ];
+      (error) => {
+        console.error('Error fetching all products:', error);
+      }
+    );
   }
 
   addToCart(product: any) {

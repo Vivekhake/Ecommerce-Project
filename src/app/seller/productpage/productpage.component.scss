@@ -80,3 +80,21 @@
 .form-section button:hover {
   background-color: #185ddc;
 }
+.form-section select {
+  margin-top: 6px;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  background-color: white;
+  appearance: none; /* optional: remove default arrow style */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form-section select:focus {
+  border-color: #2874f0;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(40, 116, 240, 0.2);
+}
