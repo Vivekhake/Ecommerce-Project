@@ -17,38 +17,44 @@
 
     <!-- Right: Form Inputs -->
     <div class="form-section">
-      <label
-        >Product Name:
+      <label>
+        Product Name:
         <input formControlName="productName" type="text" />
       </label>
 
-      <label
-        >Product ID:
+      <label>
+        Product ID:
         <input formControlName="productId" type="text" />
       </label>
 
-      <label
-        >Image URL:
+      <label>
+        Image URL:
         <input formControlName="productImageURL" type="text" />
       </label>
 
-      <label
-        >Category:
-        <input formControlName="productCategory" type="text" />
+      <!-- Updated Dropdown for Category -->
+      <label>
+        Category:
+        <select formControlName="productCategory">
+          <option value="">-- Select Category --</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Mobile">Mobile</option>
+          <option value="Wear">Wear</option>
+        </select>
       </label>
 
-      <label
-        >Description:
+      <label>
+        Description:
         <textarea formControlName="productDescription"></textarea>
       </label>
 
-      <label
-        >Price:
+      <label>
+        Price:
         <input formControlName="productPrice" type="text" />
       </label>
 
-      <label
-        >Quantity:
+      <label>
+        Quantity:
         <input formControlName="productQuantity" type="text" />
       </label>
 

@@ -4,10 +4,10 @@
     <div class="card-container">
       <div class="card" *ngFor="let product of products">
         <ng-container *ngIf="product">
-          <img [src]="product.imageUrl" alt="{{ product.name }}" />
+          <img [src]="product.productImageURL" alt="{{ product.name }}" />
           <h3>{{ product.name }}</h3>
-          <p class="description">{{ product.description }}</p>
-          <p class="price">₹{{ product.price }}</p>
+          <p class="description">{{ product.productDescription }}</p>
+          <p class="price">₹{{ product.productPrice }}</p>
           <div class="buttons">
             <button (click)="addToCart(product)">Add Cart</button>
             <button class="buy-now" (click)="buyNow(product)">Buy Now</button>
