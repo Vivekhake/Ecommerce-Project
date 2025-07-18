@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // ✅ Import OnInit
 import {
   FormBuilder,
   FormGroup,
@@ -15,9 +15,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './productpage.component.html',
   styleUrls: ['./productpage.component.scss'],
 })
-export class ProductpageComponent {
+export class ProductpageComponent implements OnInit {
+  // ✅ implements OnInit
   productForm: FormGroup;
-  private apiUrl = 'http://localhost:8080/productUser'; // Your Spring Boot endpoint
+  private apiUrl = 'http://localhost:8080/productUser';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.productForm = this.fb.group({
@@ -29,6 +30,10 @@ export class ProductpageComponent {
       productPrice: ['', Validators.required],
       productQuantity: ['', Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.getProductById(2); // Fetching product with ID 2 on load
   }
 
   onSubmit() {
@@ -46,6 +51,27 @@ export class ProductpageComponent {
       error: (err) => {
         console.error('Error submitting product:', err);
         alert('Submission failed');
+      },
+    });
+  }
+
+  getProductById(id: number) {
+    this.http.get<any>(`${this.apiUrl}/${id}`).subscribe({
+      next: (data) => {
+        console.log('Product Loaded Successfully:', data);
+
+        this.productForm.patchValue({
+          productName: data.productName,
+          productId: data.productId,
+          productImageURL: data.productImageURL,
+          productCategory: data.productCategory,
+          productDescription: data.productDescription,
+          productPrice: data.productPrice,
+          productQuantity: data.productQuantity,
+        });
+      },
+      error: (error) => {
+        console.error('Error loading product:', error.message);
       },
     });
   }

@@ -1,37 +1,28 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../app/models/product.model'; // ✅ Model file you created
+import { Product } from './models/product.model'; // Adjust path if needed
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private http = inject(HttpClient);
+  private baseUrl = 'http://localhost:8080/productUser';
 
-  // ✅ Add a product
-  addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(
-      'http://localhost:8080/api/products',
-      product
-    );
+  constructor(private http: HttpClient) {}
+
+  // Get a product by its ID
+  getProductById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
 
-  // ✅ Get all products
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('http://localhost:8080/api/products');
+  // Get all products
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/all`);
   }
 
-  // ✅ Update product
-  updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(
-      'http://localhost:8080/api/products',
-      product
-    );
-  }
-
-  // ✅ Delete product
-  deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:8080/api/products/${id}`);
+  // Save product (optional if needed)
+  saveProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.baseUrl, product);
   }
 }

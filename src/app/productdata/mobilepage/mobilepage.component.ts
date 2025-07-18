@@ -22,7 +22,7 @@ export class MobilepageComponent implements OnInit {
         name: 'Samsung Galaxy',
         price: 499,
         image:
-          'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/e/r/f/-original-imah56hkgehywn5b.jpeg?q=70',
+          'https://i03.appmifile.com/343_item_in/21/01/2025/57963bb57ad1a92735070525f0350b85.png?thumb=1&w=600&f=webp&q=85',
         description: 'Samsung Galaxy F05 (Twilight Blue, 64 GB)',
       },
       {
