@@ -33,7 +33,7 @@ export class BuynowComponent {
     }
   }
 
-  proceedToPayment() {
+  addToCart() {
     if (!this.isBrowser) return;
 
     if (!this.address.trim()) {
@@ -41,8 +41,9 @@ export class BuynowComponent {
       return;
     }
 
+    // Here you can add actual cart service logic
     alert(
-      `✅ Order placed for "${this.product.name}"!\nDelivery to:\n${this.address}`
+      `🛒 "${this.product.name}" added to cart!\nDelivery Address:\n${this.address}`
     );
   }
 
