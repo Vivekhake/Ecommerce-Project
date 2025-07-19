@@ -1,47 +1,74 @@
 <h2>🛒 Your Cart</h2>
 
-<!-- ✅ Table layout for cart items -->
-<table *ngIf="cartItems.length > 0" class="cart-table">
+<!-- ✅ Cart Table -->
+<table
+  *ngIf="cartItems.length > 0"
+  class="cart-table"
+  aria-label="Shopping Cart Table"
+>
+  <caption class="visually-hidden">
+    List of items in your cart
+  </caption>
   <thead>
     <tr>
-      <th>Image</th>
-      <th>Product</th>
-      <th>Price (₹)</th>
-      <th>Quantity</th>
-      <th>Total (₹)</th>
-      <th>Actions</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price (₹)</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Total (₹)</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of cartItems">
+    <tr *ngFor="let item of cartItems; trackBy: trackById">
       <td>
-        <img [src]="item.image" alt="{{ item.name }}" class="product-image" />
+        <img
+          [src]="item.productImageURL"
+          [alt]="item.productName"
+          class="product-image"
+          width="60"
+          height="60"
+        />
       </td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.price }}</td>
+      <td>{{ item.productName }}</td>
+      <td>{{ item.productCategory }}</td>
+      <td>{{ item.productDescription }}</td>
+      <td>₹{{ item.productPrice | number : "1.2-2" }}</td>
       <td>
         <input
           type="number"
-          [(ngModel)]="item.quantity"
-          (change)="updateQuantity(item.id, item.quantity)"
           min="1"
+          [ngModel]="item.productQuantity"
+          (ngModelChange)="updateQuantity(item.productId, $event)"
+          class="quantity-input"
         />
       </td>
-      <td>{{ item.price * item.quantity }}</td>
       <td>
-        <button (click)="removeFromCart(item.id)">Remove</button>
+        ₹{{ item.productPrice * item.productQuantity | number : "1.2-2" }}
+      </td>
+      <td>
+        <button
+          (click)="removeFromCart(item.productId)"
+          aria-label="Remove item"
+        >
+          🗑 Remove
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
-<!-- ✅ Total Summary -->
-<div *ngIf="cartItems.length > 0" class="total-section">
-  <h3>Total Amount: ₹{{ totalAmount }}</h3>
-  <button>Proceed to Checkout</button>
-</div>
+<!-- ✅ Total Section -->
+<section *ngIf="cartItems.length > 0" class="total-section">
+  <h3>Total Amount: ₹{{ totalAmount | number : "1.2-2" }}</h3>
+  <button class="checkout-btn" [disabled]="cartItems.length === 0">
+    Proceed to Checkout
+  </button>
+</section>
 
-<!-- ❌ Empty cart fallback -->
-<div *ngIf="cartItems.length === 0" class="empty-cart">
+<!-- ❌ Empty Cart Message -->
+<section *ngIf="cartItems.length === 0" class="empty-cart">
   <p>Your cart is empty.</p>
-</div>
+</section>

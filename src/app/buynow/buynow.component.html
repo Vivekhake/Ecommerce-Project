@@ -3,49 +3,20 @@
     <!-- Left Column -->
     <div class="img-1">
       <div class="image-section">
-        <img [src]="product.image" alt="{{ product.name }}" />
+        <img [src]="product.productImageURL" alt="{{ product.productName }}" />
       </div>
     </div>
+
     <!-- Right Column -->
     <div class="info-section">
-      <h1>{{ product.name }}</h1>
-      <p><strong>Description:</strong> {{ product.description }}</p>
-      <p><strong>Price:</strong> ₹{{ product.price }}</p>
-      <p><strong>Rating:</strong> ⭐ {{ product.rating }}</p>
-      <p>
-        <strong>Stock:</strong>
-        {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}
-      </p>
-      <p><strong>Seller:</strong> {{ product.sellerName }}</p>
+      <h1>{{ product.productName }}</h1>
+      <p><strong>Description:</strong> {{ product.productDescription }}</p>
+      <p><strong>Price:</strong> ₹{{ product.productPrice }}</p>
 
-      <!-- 🆕 Additional Dynamic Data Section -->
-      <div class="additional-details" *ngIf="product.extraDetails">
-        <h3>🛍️ More Product Details</h3>
-        <p><strong>Full Name:</strong> {{ product.extraDetails.fullName }}</p>
-        <p>
-          <strong>Ratings & Reviews:</strong>
-          {{ product.extraDetails.ratingCount }} Ratings &
-          {{ product.extraDetails.reviewCount }} Reviews
-        </p>
-        <p>
-          <strong>Discount Info:</strong>
-          {{ product.extraDetails.discountInfo }}
-        </p>
-        <p>
-          <strong>Protect Fee:</strong> ₹{{ product.extraDetails.protectFee }}
-        </p>
-        <p>
-          <strong>Secure Delivery:</strong>
-          {{ product.extraDetails.deliveryDate }}
-        </p>
-
-        <h4>💥 Available Offers</h4>
-        <ul>
-          <li *ngFor="let offer of product.extraDetails.offers">
-            {{ offer }}
-          </li>
-        </ul>
-      </div>
+      <!-- Optional Fields: Add these only if they exist in the product object -->
+      <!-- <p><strong>Rating:</strong> ⭐ {{ product.rating }}</p> -->
+      <!-- <p><strong>Stock:</strong> {{ product.stock > 0 ? "In Stock" : "Out of Stock" }}</p> -->
+      <!-- <p><strong>Seller:</strong> {{ product.sellerName }}</p> -->
 
       <!-- Address -->
       <div class="address-section">
@@ -60,9 +31,7 @@
 
       <!-- Buttons -->
       <div class="button-group">
-        <button class="buy-now" (click)="proceedToPayment()">
-          Proceed to Payment 💳
-        </button>
+        <button class="buy-now" (click)="addToCart()">Add to Cart 🛒</button>
         <button class="busy-button" (click)="markBusy()">Busy Now 🚫</button>
       </div>
     </div>

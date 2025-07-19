@@ -1,48 +1,61 @@
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../product.service';
+import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
-  products = [
-    {
-      productId: 101,
-      productName: 'iPhone 14 Pro',
-      productImageURL: 'https://via.placeholder.com/80',
-      productCategory: 'Smartphones',
-      productDescription: 'Latest iPhone with A16 Bionic chip',
-      productPrice: 129999,
-      productQuantity: 12,
-    },
-    {
-      productId: 102,
-      productName: 'Sony WH-1000XM5',
-      productImageURL: 'https://via.placeholder.com/80',
-      productCategory: 'Headphones',
-      productDescription: 'Noise-cancelling wireless headphones',
-      productPrice: 29999,
-      productQuantity: 20,
-    },
-    {
-      productId: 103,
-      productName: 'MacBook Air M2',
-      productImageURL: 'https://via.placeholder.com/80',
-      productCategory: 'Laptops',
-      productDescription: '13.6-inch Liquid Retina display with M2 chip',
-      productPrice: 114900,
-      productQuantity: 8,
-    },
-  ];
-  deleteProduct(productId: number): void {
-    const confirmDelete = confirm(
-      'Are you sure you want to delete this product?'
-    );
-    if (confirmDelete) {
-      this.products = this.products.filter((p) => p.productId !== productId);
+export class DashboardComponent implements OnInit {
+  public products: Product[] = [];
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (res) => (this.products = res),
+      error: (err) => console.error('Error fetching products:', err),
+    });
+  }
+
+  deleteProductById(productId: number): void {
+    if (
+      confirm(`Are you sure you want to delete product with ID ${productId}?`)
+    ) {
+      this.productService.deleteProduct(productId).subscribe({
+        next: () => {
+          alert('Product deleted successfully!');
+          this.loadProducts(); // Refresh product list
+        },
+        error: (err) => {
+          if (err.status === 404) {
+            alert('Product not found in database.');
+          } else {
+            alert('Something went wrong.');
+            console.error('Delete error:', err);
+          }
+        },
+      });
     }
+  }
+
+  editProduct(productId: number): void {
+    console.log('Edit product with ID:', productId);
+    // Navigate to product edit page or open a modal
+  }
+  get totalInventoryValue(): number {
+    return this.products.reduce(
+      (sum, p) => sum + p.productPrice * p.productQuantity,
+      0
+    );
   }
 }

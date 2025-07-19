@@ -1,59 +1,83 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
+import { CartItem } from '../app/models/cart-item.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  [x: string]: any;
-  cartItems: any[] = [];
+  private cartItems: CartItem[] = [];
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable();
+  private isBrowser: boolean;
 
-  private updateCartCount() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+
+    if (this.isBrowser) {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        this.cartItems = JSON.parse(savedCart);
+      }
+      this.updateCartCount();
+    }
+  }
+
+  private updateCartCount(): void {
     const totalItems = this.cartItems.reduce(
-      (sum, item) => sum + item.quantity,
+      (sum, item) => sum + (item.productQuantity || 1),
       0
     );
     this.cartCount.next(totalItems);
+
+    if (this.isBrowser) {
+      localStorage.setItem('cart', JSON.stringify(this.cartItems));
+    }
   }
 
-  addToCart(product: any) {
-    const existing = this.cartItems.find((item) => item.id === product.id);
-    if (existing) {
-      existing.quantity += 1;
+  addToCart(product: CartItem): void {
+    const existingItem = this.cartItems.find(
+      (item) => item.productId === product.productId
+    );
+
+    if (existingItem) {
+      existingItem.productQuantity += 1;
     } else {
-      this.cartItems.push({ ...product, quantity: 1 });
+      this.cartItems.push({ ...product, productQuantity: 1 });
     }
-    this.updateCartCount(); // update count when item added
+
+    this.updateCartCount();
   }
 
-  removeFromCart(productId: number) {
-    this.cartItems = this.cartItems.filter((item) => item.id !== productId);
-    this.updateCartCount(); // update after removal
+  removeFromCart(productId: number): void {
+    this.cartItems = this.cartItems.filter(
+      (item) => item.productId !== productId
+    );
+    this.updateCartCount();
   }
 
-  updateQuantity(productId: number, quantity: number) {
-    const item = this.cartItems.find((p) => p.id === productId);
-    if (item) {
-      item.quantity = quantity;
-      this.updateCartCount(); // update after quantity change
+  updateQuantity(productId: number, quantity: number): void {
+    const item = this.cartItems.find((p) => p.productId === productId);
+    if (item && quantity > 0) {
+      item.productQuantity = quantity;
+      this.updateCartCount();
     }
   }
 
-  getCartItems() {
-    return this.cartItems;
+  getCartItems(): CartItem[] {
+    return [...this.cartItems];
   }
 
   getTotalAmount(): number {
     return this.cartItems.reduce(
-      (acc, item) => acc + item.price * item.quantity,
+      (total, item) => total + item.productPrice * (item.productQuantity || 1),
       0
     );
   }
 
-  clearCart() {
+  clearCart(): void {
     this.cartItems = [];
-    this.updateCartCount(); // reset to 0
+    this.updateCartCount();
   }
 }

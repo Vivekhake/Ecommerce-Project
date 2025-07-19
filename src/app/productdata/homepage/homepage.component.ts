@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 })
 export class HomepageComponent implements OnInit {
   public products: any[] = [];
+  public busyProductName: string | null = null;
 
   constructor(
     private cartService: CartService,
@@ -43,6 +44,7 @@ export class HomepageComponent implements OnInit {
   }
 
   buyNow(product: any): void {
+    this.busyProductName = product.productName; // Optional: Mark busy
     this.router.navigate(['/buy-now'], { state: { product } });
   }
 }
